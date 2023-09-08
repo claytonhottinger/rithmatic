@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import PuzzleLayout from '../components/PuzzleLayout.vue'
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <PuzzleLayout />
   </main>
 </template>
