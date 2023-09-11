@@ -1,29 +1,69 @@
 <script setup lang="ts">
 import NumberButton from './NumberButton.vue';
+import OperatorButton from './OperatorButton.vue';
+import { ref } from 'vue';
+const argOptions = [25, 13, 3, 9, 18, 7];
+const numbers = [...argOptions];
+const arg1 = ref<number | null>(null);
+const arg2 = ref<number | null>(null);
+const operator = ref<string | null>(null);
+
+function selectArgument(n: number, index: number) {
+    if (!arg1.value) {
+        arg1.value = n;
+    }
+}
+
+
+function selectOperator(o: string) {
+    if (operator.value === o) {
+        operator.value = null
+    } else {
+        operator.value = o
+    }
+}
+
 </script>
 
 <template>
-    <div class="wrapper">
-        <div class="item"><NumberButton value="25" /></div>
-        <div class="item"><NumberButton value="13" /></div>
-        <div class="item"><NumberButton value="3" /></div>
-        <div class="item"><NumberButton value="9" /></div>
-        <div class="item"><NumberButton value="18" /></div>
-        <div class="item"><NumberButton value="7" /></div>
+    <div class="numbersWrapper">
+        <div v-for="option of argOptions" :key="option" class="numberOption"><NumberButton :isSelected="option === arg1 || option === arg2" :value="option" @select-argument="selectArgument" /></div>
+    </div>
+    <div class="operatorsWrapper">
+        <div class="operatorOption">
+            <OperatorButton operator="+" :isSelected="operator === '+'" @select-operator="selectOperator"  />
+            <OperatorButton operator="-" :isSelected="operator === '-'" @select-operator="selectOperator"  />
+            <OperatorButton operator="*" :isSelected="operator === '*'" @select-operator="selectOperator"  />
+            <OperatorButton operator="/" :isSelected="operator === '/'" @select-operator="selectOperator"  />
+        </div>
     </div>
 </template>
 
 <style scoped>
-    .wrapper {
+    .numbersWrapper {
         display: grid;
-        gap: 64px;
+        gap: 7vw;
         grid-template-areas: 
-        "a a a"
-        "a a a";
+        "item item item"
+        "item item item";
+        justify-items: center;
     }
     
-    .item {
+    .numberOption {
         display: grid;
-        grid-area: "a";
+        grid-area: "item";
+        width: 23vw;
+        height: 23vw;
+        border-radius: 23vw;
+    }
+
+    .operatorsWrapper {
+        display: flex;
+    }
+
+    .operatorOption {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 15vw;
     }
 </style>

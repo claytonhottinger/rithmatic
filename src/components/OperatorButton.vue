@@ -1,12 +1,12 @@
 <script setup lang="ts">
 defineProps<{
-  value: number
+  operator: string
   isSelected?: boolean
 }>()
 </script>
 
 <template>
-    <button :class="`button ${isSelected ? 'selected' : ''}`" @click="$emit('selectArgument', value)">{{ value }}</button>
+    <button :class="`button ${isSelected ? 'selected' : ''}`" @click="$emit('selectOperator', operator)">{{ operator }}</button>
 </template>
 
 <style scoped>
@@ -14,8 +14,8 @@ defineProps<{
     width: 100%;
     height: 100%;
     border-radius: inherit;
-    border: 3px solid black;
-    font-size: xx-large;
+    border: 2px solid black;
+    font-size: x-large;
     background-color: inherit;
   }
   .selected {
