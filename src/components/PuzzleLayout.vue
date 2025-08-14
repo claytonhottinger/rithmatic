@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { remove } from 'lodash-es';
 import NumberButton from './NumberButton.vue';
 import OperatorButton from './OperatorButton.vue';
 import { Operator, operatorFunctions } from './utils';
 import { ref } from 'vue';
 const argOptions = [25, 13, 3, 9, 18, 7];
+const target = 88
 const numbers = ref([...argOptions]);
 const arg1 = ref<[number, number] | null>(null);
 const arg2 = ref<[number, number] | null>(null);
@@ -42,9 +42,25 @@ function selectOperator(o: Operator) {
     }
 }
 
+function reset() {
+    operator.value = Operator.Reset;
+    setTimeout(() => operator.value = null, 200);
+    arg1.value = null;
+    numbers.value = [...argOptions];
+}
+
 </script>
 
 <template>
+    <div class="targetWrapper">
+        <div class="operatorOption">
+            <OperatorButton :operator="Operator.Reset" :isSelected="operator === Operator.Reset" @select-operator="reset" />
+        </div>
+        <div class="target">
+            <NumberButton :value="target" />
+        </div>
+        <div class="operatorOption"></div>
+    </div>
     <div class="numbersWrapper">
         <div v-for="(option, index) of numbers" :key="index" class="numberOption">
             <NumberButton v-if="Boolean(option)" :isSelected="option === arg1?.[0] || option === arg2?.[0]" :value="option"
@@ -68,37 +84,54 @@ function selectOperator(o: Operator) {
             <OperatorButton :operator="Operator.Divide" :isSelected="operator === Operator.Divide"
                 @select-operator="selectOperator" />
         </div>
-
     </div>
 </template>
 
 <style scoped>
+.targetWrapper {
+    display: grid;
+    gap: 1rem;
+    grid-template-areas: "reset target blank";
+    justify-items: center;
+}
+
 .numbersWrapper {
     display: grid;
-    gap: 7vw;
+    gap: 1rem;
     grid-template-areas:
         "number number number"
         "number number number";
     justify-items: center;
+    margin-top: 2rem;
+}
+
+.target {
+    display: grid;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 20rem;
+}
+
+.target .button {
+    font-size: 13rem;
 }
 
 .numberOption {
     display: grid;
-    grid-area: "number";
-    width: 23vw;
-    height: 23vw;
-    border-radius: 23vw;
+    width: 15rem;
+    height: 15rem;
+    border-radius: 15rem;
 }
 
 .operatorsWrapper {
-    margin-top: 16px;
+    margin-top: 2rem;
     display: flex;
     justify-content: space-evenly;
 }
 
 .operatorOption {
-    width: 15vw;
-    height: 15vw;
-    border-radius: 15vw;
+    width: 12rem;
+    height: 12rem;
+    border-radius: 12rem;
 }
 </style>

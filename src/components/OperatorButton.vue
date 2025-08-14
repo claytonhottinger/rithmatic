@@ -18,7 +18,7 @@ defineProps<{
   height: 100%;
   border-radius: inherit;
   border: 2px solid black;
-  font-size: x-large;
+  font-size: 5rem;
   background-color: inherit;
 }
 

@@ -3,6 +3,7 @@ export enum Operator {
     Subtract = '-',
     Multiply = 'x',
     Divide = '/',
+    Reset = '⟳'
 }
 
 export const operatorFunctions = new Map([
