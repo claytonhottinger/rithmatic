@@ -1,12 +1,23 @@
 <script setup lang="ts">
-defineProps<{
+import { inject } from 'vue';
+import keys from './PuzzleProvider/keys';
+
+const props = defineProps<{
   value: number
-  isSelected?: boolean
-}>()
+  index: number
+}>();
+
+const firstSelectedIndex = inject(keys.FIRST_INDEX);
+const secondSelectedIndex = inject(keys.SECOND_INDEX);
+
+const selectNumber = inject(keys.SELECT_NUMBER) ?? (() => undefined);
+
 </script>
 
 <template>
-  <button :class="`button ${isSelected ? 'selected' : ''}`" @click="$emit('selectArgument', value)">{{ value }}</button>
+  <button :class="`button ${[firstSelectedIndex, secondSelectedIndex].includes(props.index) ? 'selected' : ''}`"
+    @click="() => selectNumber(props.index)">{{
+      props.value }}</button>
 </template>
 
 <style scoped>

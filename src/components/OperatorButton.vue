@@ -1,15 +1,22 @@
 <script setup lang="ts">
+import { inject } from 'vue';
 import type { Operator } from './utils';
+import keys from './PuzzleProvider/keys';
 
-defineProps<{
+const props = defineProps<{
   operator: Operator
-  isSelected?: boolean
-}>()
+}>();
+
+const selectedOperator = inject(keys.OPERATOR)
+
+const selectOperator = inject(keys.SELECT_OPERATOR) ?? (() => undefined);
+
 </script>
 
 <template>
-  <button :class="`button ${isSelected ? 'selected' : ''}`" @click="$emit('selectOperator', operator)">{{ operator
-  }}</button>
+  <button :class="`button ${selectedOperator === props.operator ? 'selected' : ''}`"
+    @click="() => selectOperator(props.operator)">{{ operator
+    }}</button>
 </template>
 
 <style scoped>
