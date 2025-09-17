@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { inject, ref } from 'vue';
 import keys from './PuzzleProvider/keys';
+import CircleButton from './CircleButton.vue';
 
 const isClicked = ref(false);
 
@@ -15,21 +16,12 @@ const handleClick = () => {
 </script>
 
 <template>
-    <button :class="`button ${isClicked ? 'selected' : ''}`" @click="handleClick">⟳</button>
+    <CircleButton :class="'button'" :is-selected="isClicked" @on-click="handleClick">⟳</CircleButton>
 </template>
 
 <style scoped>
 .button {
-    width: 100%;
-    height: 100%;
-    border-radius: inherit;
-    border: 2px solid black;
     font-size: 5rem;
     background-color: inherit;
-}
-
-.selected {
-    background-color: green;
-    color: white;
 }
 </style>
