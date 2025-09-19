@@ -5,6 +5,7 @@ import OperatorButton from './OperatorButton.vue';
 import keys from './PuzzleProvider/keys';
 import ResetButton from './ResetButton.vue';
 import { Operator } from "./utils";
+import HelpButton from './HelpButton.vue';
 const target = inject(keys.TARGET);
 const numbers = inject(keys.NUMBERS);
 
@@ -18,7 +19,9 @@ const numbers = inject(keys.NUMBERS);
         <div class="target">
             {{ target }}
         </div>
-        <div class="operatorOption"></div>
+        <div class="operatorOption">
+            <HelpButton />
+        </div>
     </div>
     <div class="numbersWrapper">
         <div v-for="(option, index) of numbers" :key="index" class="numberOption">
