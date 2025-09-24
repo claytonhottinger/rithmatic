@@ -5,7 +5,6 @@ import OperatorButton from './OperatorButton.vue';
 import keys from './PuzzleProvider/keys';
 import ResetButton from './ResetButton.vue';
 import { Operator } from "./utils";
-import HelpButton from './HelpButton.vue';
 const target = inject(keys.TARGET);
 const numbers = inject(keys.NUMBERS);
 
@@ -20,7 +19,6 @@ const numbers = inject(keys.NUMBERS);
             {{ target }}
         </div>
         <div class="operatorOption">
-            <HelpButton />
         </div>
     </div>
     <div class="numbersWrapper">
@@ -49,7 +47,6 @@ const numbers = inject(keys.NUMBERS);
     display: grid;
     gap: 1rem;
     grid-template-areas: "reset target blank";
-    justify-items: center;
 }
 
 .numbersWrapper {
@@ -58,7 +55,6 @@ const numbers = inject(keys.NUMBERS);
     grid-template-areas:
         "number number number"
         "number number number";
-    justify-items: center;
     margin-top: 2rem;
 }
 

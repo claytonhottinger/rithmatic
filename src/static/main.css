@@ -1,11 +1,31 @@
+:root {
+    --primary-dark-color: #394648;
+    --primary-light-color: #EFF2F1;
+    --primary-color: #554CA9;
+    --primary-highlight-color: #FFD400;
+    --primary-text-color: var(--primary-dark-color);
+    --primary-bg-color: var(--primary-light-color);
+    --primary-border-color: var(--primary-dark-color);
+}
+
 html {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
+    color: var(--primary-text-color);
+    background-color: var(--primary-bg-color);
 }
 
-body {
+p, h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-text-color);
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+main {
     min-width: 400px;
-    margin: 2rem 3rem;
+    padding: 2rem 3rem;
 }
 
 @media screen and (width < 900px) {
@@ -17,5 +37,16 @@ body {
 @media screen and (width < 600px) {
     html {
         font-size: 8px;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-text-color: var(--primary-light-color);
+        --primary-bg-color: var(--primary-dark-color);
+        --primary-border-color: var(--primary-light-color);
+    }
+    html {
+        border-color: var(--primary-light-color);
     }
 }

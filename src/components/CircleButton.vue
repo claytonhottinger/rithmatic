@@ -18,12 +18,14 @@ const emit = defineEmits<{
     width: 100%;
     height: 100%;
     border-radius: inherit;
-    border: 3px solid black;
+    border: 3px solid;
     background-color: inherit;
+    color: var(--primary-text-color);
+    border-color: var(--primary-border-color);
 }
 
 .selected {
-    background-color: green;
-    color: white;
+    background-color: var(--primary-highlight-color);
+    color: var(--primary-dark-color);
 }
 </style>
