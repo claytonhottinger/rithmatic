@@ -45,17 +45,19 @@ const numbers = inject(keys.NUMBERS);
 <style scoped>
 .targetWrapper {
     display: grid;
-    gap: 1rem;
+    gap: 2rem;
     grid-template-areas: "reset target blank";
+    justify-content: space-between;
 }
 
 .numbersWrapper {
     display: grid;
-    gap: 1rem;
+    gap: 2rem;
     grid-template-areas:
         "number number number"
         "number number number";
-    margin-top: 2rem;
+    justify-content: center;
+    margin-top: 4rem;
 }
 
 .target {
@@ -64,20 +66,23 @@ const numbers = inject(keys.NUMBERS);
 
 .numberOption {
     display: grid;
-    width: 15rem;
-    height: 15rem;
-    border-radius: 15rem;
+    min-width: 13rem;
+    min-height: 13rem;
+    border-radius: 13rem;
 }
 
 .operatorsWrapper {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: space-evenly;
+    margin-top: 4rem;
+    display: grid;
+    gap: 2rem;
+    grid-template-areas:
+        "operator operator operator operator";
+    justify-content: center;
 }
 
 .operatorOption {
-    width: 12rem;
-    height: 12rem;
-    border-radius: 12rem;
+    width: 8rem;
+    height: 8rem;
+    border-radius: 8rem;
 }
 </style>

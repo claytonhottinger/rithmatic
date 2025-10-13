@@ -35,11 +35,11 @@ const closeDialog = () => {
 }
 
 .dialog h1 {
-    font-size: 3rem;
+    font-size: 5rem;
 }
 
 .dialog p {
-    font-size: 2rem;
+    font-size: 3rem;
 }
 
 .header {

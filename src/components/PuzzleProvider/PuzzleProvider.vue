@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { getRandomArrayMember, getRandomIntInclusive, isNotNullish, isNullish, knuthShuffle, Operator, operatorFunctions, OperatorIndex } from '../utils';
-import { provide, ref } from 'vue';
+import { provide, ref, useTemplateRef } from 'vue';
 import keys from './keys';
 const MIN = 1;
 const TARGET_MAX = 200;
@@ -12,6 +12,7 @@ const target = ref(generatedTarget);
 const arg1 = ref<number | null>(null);
 const arg2 = ref<number | null>(null);
 const operator = ref<Operator | null>(null);
+
 
 function generatePuzzle(count = 6): [number, number[]] {
     // const target = Math.floor(Math.random() * 100);
@@ -76,7 +77,13 @@ function completeCalculation() {
         const fn = operatorFunctions.get(operator.value);
         const result = typeof fn === 'function' ? fn(numbers.value[arg1.value], numbers.value[arg2.value]) : 0;
 
-        if (result > 0 && result !== Infinity && Number.isInteger(result)) {
+        if (result <= 0) {
+            setErrorMessage("Result must be greater than zero");
+        } else if (!Number.isInteger(result)) {
+            setErrorMessage("Result must be an integer");
+        } else if (result > 625) {
+            setErrorMessage("Result must be 625 (25 x 25) or less");
+        } else {
             const newNumbers = [...numbers.value];
             newNumbers[arg2.value] = result;
             delete newNumbers[arg1.value];
@@ -106,6 +113,17 @@ function reset() {
     numbers.value = [...argOptions];
 }
 
+const errorMessageRef = useTemplateRef("errorMessagePopover");
+const errorMessage = ref<string | null>(null);
+
+function setErrorMessage(message: string) {
+    errorMessage.value = message;
+    errorMessageRef.value?.togglePopover()
+    setTimeout(() => {
+        errorMessageRef.value?.togglePopover();
+    }, 3000)
+}
+
 provide(keys.NUMBERS, numbers);
 provide(keys.TARGET, target);
 provide(keys.FIRST_INDEX, arg1);
@@ -119,5 +137,24 @@ provide(keys.RESET, reset);
 </script>
 
 <template>
+    <div :class="'errorMessage'" popover="auto" ref="errorMessagePopover">
+        <p>{{ errorMessage }}</p>
+    </div>
     <slot></slot>
 </template>
+
+<style scoped>
+.errorMessage {
+    background-color: var(--primary-error-color);
+    border: 1px solid var(--primary-light-color);
+    border-radius: 1rem;
+    margin: 3rem auto;
+    padding: 1rem;
+}
+
+.errorMessage p {
+    color: var(--primary-light-color);
+    font-size: 3rem;
+    margin: 0;
+}
+</style>

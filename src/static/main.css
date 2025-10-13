@@ -3,6 +3,7 @@
     --primary-light-color: #EFF2F1;
     --primary-color: #554CA9;
     --primary-highlight-color: #FFD400;
+    --primary-error-color: #9C1C24;
     --primary-text-color: var(--primary-dark-color);
     --primary-bg-color: var(--primary-light-color);
     --primary-border-color: var(--primary-dark-color);
@@ -10,9 +11,14 @@
 
 html {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
+    font-size: 8px;
     color: var(--primary-text-color);
     background-color: var(--primary-bg-color);
+    box-sizing: border-box;
+}
+
+html * {
+    box-sizing: border-box;
 }
 
 p, h1, h2, h3, h4, h5, h6 {
@@ -24,20 +30,9 @@ button:hover {
 }
 
 main {
-    min-width: 400px;
+    margin: 0 auto;
     padding: 2rem 3rem;
-}
-
-@media screen and (width < 900px) {
-    html {
-        font-size: 12px;
-    }
-}
-
-@media screen and (width < 600px) {
-    html {
-        font-size: 8px;
-    }
+    width: 400px;
 }
 
 @media (prefers-color-scheme: dark) {
