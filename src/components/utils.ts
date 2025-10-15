@@ -2,7 +2,7 @@ export enum Operator {
   Add = '+',
   Multiply = 'x',
   Subtract = '-',
-  Divide = '/'
+  Divide = '÷'
 }
 
 export const operatorFunctions = new Map([

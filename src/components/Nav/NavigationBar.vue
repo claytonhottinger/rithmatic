@@ -16,7 +16,7 @@ import HelpButton from "./HelpButton.vue"
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 3rem;
+    padding: 1rem 1rem;
     min-width: 400px;
 }
 

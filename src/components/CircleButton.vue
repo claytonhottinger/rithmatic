@@ -24,6 +24,11 @@ const emit = defineEmits<{
     border-color: var(--primary-border-color);
 }
 
+.button:disabled {
+    color: #98ABAE;
+    border-color: #98ABAE;
+}
+
 .selected {
     background-color: var(--primary-highlight-color);
     color: var(--primary-dark-color);

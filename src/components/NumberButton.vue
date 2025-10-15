@@ -23,6 +23,6 @@ const selectNumber = inject(keys.SELECT_NUMBER) ?? (() => undefined);
 
 <style scoped>
 .button {
-  font-size: 10rem;
+  font-size: 6rem;
 }
 </style>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { inject, ref } from 'vue';
+import ResetIcon from "vue-material-design-icons/Restart.vue";
 import keys from './PuzzleProvider/keys';
 import CircleButton from './CircleButton.vue';
 
@@ -16,7 +17,9 @@ const handleClick = () => {
 </script>
 
 <template>
-    <CircleButton :class="'button'" :is-selected="isClicked" @on-click="handleClick">⟳</CircleButton>
+    <CircleButton :class="'button'" :is-selected="isClicked" @on-click="handleClick">
+        <ResetIcon title="Reset to initial puzzle state" />
+    </CircleButton>
 </template>
 
 <style scoped>

@@ -7,15 +7,15 @@ const TARGET_MAX = 200;
 const OPTION_MAX = 25;
 
 const [generatedTarget, argOptions] = generatePuzzle();
-const numbers = ref([...argOptions]);
+const numbers = ref<(number | null)[]>([...argOptions]);
 const target = ref(generatedTarget);
 const arg1 = ref<number | null>(null);
 const arg2 = ref<number | null>(null);
 const operator = ref<Operator | null>(null);
+let history: (number | null)[][] = [];
 
 
 function generatePuzzle(count = 6): [number, number[]] {
-    // const target = Math.floor(Math.random() * 100);
     let target: number = 0;
     const options = [];
     let i = 0;
@@ -73,9 +73,9 @@ function selectArgument(index: number) {
 }
 
 function completeCalculation() {
-    if (operator.value && isNotNullish(arg1.value) && isNotNullish(arg2.value)) {
+    if (operator.value && isNotNullish(arg1.value) && isNotNullish(arg2.value) && isNotNullish(numbers.value[arg1.value]) && isNotNullish(numbers.value[arg2.value])) {
         const fn = operatorFunctions.get(operator.value);
-        const result = typeof fn === 'function' ? fn(numbers.value[arg1.value], numbers.value[arg2.value]) : 0;
+        const result = typeof fn === 'function' ? fn(numbers.value[arg1.value]!, numbers.value[arg2.value]!) : 0;
 
         if (result <= 0) {
             setErrorMessage("Result must be greater than zero");
@@ -84,9 +84,10 @@ function completeCalculation() {
         } else if (result > 625) {
             setErrorMessage("Result must be 625 (25 x 25) or less");
         } else {
+            history.push([...numbers.value]);
             const newNumbers = [...numbers.value];
             newNumbers[arg2.value] = result;
-            delete newNumbers[arg1.value];
+            newNumbers[arg1.value] = null;
             numbers.value = newNumbers;
         }
 
@@ -111,6 +112,22 @@ function reset() {
     arg1.value = null;
     arg2.value = null;
     numbers.value = [...argOptions];
+    history = [[...argOptions]];
+}
+
+function undo() {
+    if (history.length === 1) {
+        reset();
+        return;
+    }
+    arg1.value = null;
+    arg2.value = null;
+    const previousNumbers = history.pop();
+    if (!previousNumbers?.length) {
+        setErrorMessage("Error with history. Please hit 'Reset' or refresh the page");
+        return;
+    }
+    numbers.value = [...previousNumbers];
 }
 
 const errorMessageRef = useTemplateRef("errorMessagePopover");
@@ -133,6 +150,7 @@ provide(keys.OPERATOR, operator);
 provide(keys.SELECT_NUMBER, selectArgument);
 provide(keys.SELECT_OPERATOR, selectOperator);
 provide(keys.RESET, reset);
+provide(keys.UNDO, undo);
 
 </script>
 
