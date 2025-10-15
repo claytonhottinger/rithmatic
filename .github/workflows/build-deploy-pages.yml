@@ -19,7 +19,7 @@ jobs:
           node-version: 22.x
           cache: 'npm'
       - name: Install and build static files
-        run: npm ci && npm run build
+        run: npm ci && CI=true npm run build
       - name: Upload static files as artifact
         uses: actions/upload-pages-artifact@v3
         with:
